@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-imagem = cv2.imread('logo-if.jpg')
+imagem = cv2.imread('Atividade 5/logo-if.jpg')
 
 def ajuste_brilho(img, br):
     brilho = [br, br, br]
