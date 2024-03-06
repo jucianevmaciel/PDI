@@ -12,7 +12,7 @@ def resol (var):
     resolucao=np.hstack([cv2.blur(img, (var,var))])
     return resolucao
 
-def resol1(var):
+def resol1(var): 
     resolucao1=img[::var, ::var]
     return resolucao1
 
