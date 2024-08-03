@@ -1,38 +1,50 @@
 import cv2
-import numpy as np
-capture = cv2.VideoCapture(0)
-capture = cv2.VideoCapture("Avaliacao1/ifma-480p.avi")
-img = cv2.imread("Avaliacao1/logoif.png",)
-cv2.imshow("a", img)
 
-ret, frame = capture.read()
+# Caminho para o vídeo
+video_path = 'ifma-480p.avi'
 
-rows, cols, c= img.shape
-logo = frame[0:rows, 0:cols]
+# Caminho para a imagem que você deseja sobrepor
+imagem_path = 'logoif.png'
 
-img1 =img.copy()
-img1[0:rows, 0:cols] = img
-frame("", img1)
+# Carregar o vídeo
+video = cv2.VideoCapture(video_path)
+
+# Carregar a imagem
+imagem = cv2.imread(imagem_path)
+scale_percent = 20 # percent of original size
+width = int(imagem.shape[1] * scale_percent / 100)
+height = int(imagem.shape[0] * scale_percent / 100)
+dim = (width, height)
+  
+# resize image
+imagem = cv2.resize(imagem, dim, interpolation = cv2.INTER_AREA)
 
 
 
-if not capture.isOpened():
-    print("Erro ao acessar camera ou abrir o vídeo")
-else:
-    while capture.isOpened():
-        ret, frame = capture.read()
-        if ret is True:
-            cv2.imshow('Input', frame)
-            #cv2.imshow("Avaliacao1/logoif.png", 1)
-         
-            if cv2.waitKey(20) & 0xFF == ord('q'):
-                break
+# Loop pelos frames do vídeo
+while True:
+    # Capturar o frame atual
+    ret, frame = video.read()
+    if not ret:
+        break
 
-            if cv2.waitKey(20) & 0xFF == ord('w'):
-                print("Salvando frame...")
-                cv2.imwrite('print.jpg',frame)
-                
-        else: break
+    # Redimensionar a imagem para a mesma largura e altura do frame
+    #imagem_redimensionada = cv2.resize(imagem, (frame.shape[1], frame.shape[0]))
 
-capture.release()
+    # Obter largura e altura da imagem
+    (largura_imagem, altura_imagem) = imagem.shape[0:2]
+
+    # Combinar o frame e a imagem
+    resultado = frame.copy()
+    resultado[0:largura_imagem, 0:altura_imagem] = imagem
+
+    # Mostrar o resultado
+    cv2.imshow('Video com imagem sobreposta', resultado)
+
+    # Verificar se o usuário pressionou a tecla 'q' para sair
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+# Liberar os recursos
+video.release()
 cv2.destroyAllWindows()
