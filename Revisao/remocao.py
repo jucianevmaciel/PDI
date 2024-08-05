@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 img = cv2.imread("Revisao/imgem.jpg", 1)
 
 
-kernel = np.array([[0, 0, 0, 0, 0, 0, 0],
+kernel = np.array([[0, 0, 0, 1, 0, 0, 0],
                    [0, 0, 0, 1, 0, 0, 0],
                    [0, 0, 0, 1, 0, 0, 0],
                    [0, 0, 0, 1, 0, 0, 0],
@@ -19,7 +19,7 @@ kernel = np.array([[0, 0, 0, 0, 0, 0, 0],
 erosion = cv2.erode(img, kernel, iterations=5)
 
 #cv2.imshow("Filtro Personalizado", filtered_img)
-#cv2.imshow("Filtro Personalizado", erosion)
+cv2.imshow("Filtro Personalizado", erosion)
 plt.figure(figsize=(12, 8))
 
 
