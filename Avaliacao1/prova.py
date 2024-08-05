@@ -29,7 +29,7 @@ while True:
         break
 
     # Redimensionar a imagem para a mesma largura e altura do frame
-    #imagem_redimensionada = cv2.resize(imagem, (frame.shape[1], frame.shape[0]))
+    imagem_redimensionada = cv2.resize(imagem, (frame.shape[1], frame.shape[0]))
 
     # Obter largura e altura da imagem
     (largura_imagem, altura_imagem) = imagem.shape[0:2]
@@ -44,6 +44,7 @@ while True:
     # Verificar se o usuário pressionou a tecla 'q' para sair
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
 
 # Liberar os recursos
 video.release()
